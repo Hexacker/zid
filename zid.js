@@ -33,13 +33,16 @@ const ZidTest = async () => {
   /* const auth = config.get("Authorization"); */
   const headers = {
     "X-MANAGER-TOKEN": process.env.MANGER_TOKEN,
-    Authorization: process.env.auth,
+    Authorization: "Bearer " + process.env.auth,
   };
-  const getAbandondCarts = await axios
-    .get(`${ZidAPI}/managers/store/abandoned-carts`, headers, {
-      params: { page: 1, page_size: 10 },
-    })
-    .then((result) => {
+  /*   const getAbandondCarts = await axios.get(
+    `${ZidAPI}/managers/store/abandoned-carts`,
+    headers,
+    {
+      params: { page: 1, page_size: 10, duration: 4 },
+    }
+  ); */
+  /*     .then((result) => {
       console.log("DATAAA ===> ", result);
       if (result) {
         return result.data;
@@ -49,7 +52,22 @@ const ZidTest = async () => {
     })
     .catch((err) => {
       return err;
-    });
+    }); */
+  try {
+    const getAbandondCarts = await axios.get(
+      `${ZidAPI}/managers/store/abandoned-carts`,
+      {
+        headers: headers,
+        params: { page: 1, page_size: 10, duration: 4 },
+      }
+    );
+    if (getAbandondCarts) {
+      return getAbandondCarts.data;
+    }
+  } catch (error) {
+    return error;
+  }
+  return getAbandondCarts.data;
 };
 
 // exports.Zid = Zid;
