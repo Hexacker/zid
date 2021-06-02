@@ -2,13 +2,14 @@
 // const axios = require("axios");
 import axios from "axios";
 import config from "config";
+// import ZidAPI from "./axios";
 // Declaring Zid API main URL as a constant since it will not change
 const ZidAPI = "https://api.zid.dev/app/v1";
 
 const Zid = async () => {
   console.log("XMANAGER ===> ", config.get("X-MANAGER-TOKEN"));
   const headers = {
-    "X-MANAGER-TOKEN": config.get("X-MANAGER-TOKEN"),
+    "X-MANAGER-TOKEN": config.get("X_MANAGER_TOKEN"),
     Authorization: config.get("Authorization"),
   };
   const getAbandondCarts = await axios
@@ -26,5 +27,30 @@ const Zid = async () => {
   }
 };
 
+const ZidTest = async () => {
+  /*   const mangerToken = config.get("X_MANAGER_TOKEN");
+  console.log("manger token ====> ", mangerToken); */
+  /* const auth = config.get("Authorization"); */
+  const headers = {
+    "X-MANAGER-TOKEN": process.env.MANGER_TOKEN,
+    Authorization: process.env.auth,
+  };
+  const getAbandondCarts = await axios
+    .get(`${ZidAPI}/managers/store/abandoned-carts`, headers, {
+      params: { page: 1, page_size: 10 },
+    })
+    .then((result) => {
+      console.log("DATAAA ===> ", result);
+      if (result) {
+        return result.data;
+      } else {
+        return "There was an error in retrieving abandont carts";
+      }
+    })
+    .catch((err) => {
+      return err;
+    });
+};
+
 // exports.Zid = Zid;
-export default Zid;
+export default ZidTest;

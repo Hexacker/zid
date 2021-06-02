@@ -1,9 +1,14 @@
 import express from "express";
 import getAbandondCarts from "./zid.js";
+import ZidTest from "./zid.js";
+import config from "config";
+
 var app = express();
 
 app.get("/", async (req, res) => {
-  const response = await getAbandondCarts();
+  //  console.log("XMANAGER ===> ", config.get("X-MANAGER-TOKEN"));
+  // console.log("LOOOOOOG ===> ", process.env.NODE_CONFIG_DIR);
+  const response = await ZidTest();
   res.send(response);
 });
 
