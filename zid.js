@@ -1,7 +1,6 @@
 // Importing Axios to let us make API calls easly and efficiently
 // const axios = require("axios");
 import axios from "axios";
-import config from "config";
 // import ZidAPI from "./axios";
 // Declaring Zid API main URL as a constant since it will not change
 const ZidAPI = "https://api.zid.dev/app/v1";
