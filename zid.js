@@ -32,9 +32,11 @@ const ZidTest = async () => {
   console.log("manger token ====> ", mangerToken); */
   /* const auth = config.get("Authorization"); */
   const headers = {
-    "X-MANAGER-TOKEN": process.env.MANGER_TOKEN,
+    "X-MANAGER-TOKEN": process.env.MANAGER_TOKEN,
     Authorization: "Bearer " + process.env.auth,
   };
+
+  console.log("MANAGER ====> ", process.env.MANAGER_TOKEN);
   /*   const getAbandondCarts = await axios.get(
     `${ZidAPI}/managers/store/abandoned-carts`,
     headers,
