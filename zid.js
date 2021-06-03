@@ -35,7 +35,8 @@ const ZidTest = async () => {
     Authorization: "Bearer " + process.env.auth,
   };
 
-  console.log("MANAGER ====> ", process.env.MANAGER_TOKEN);
+  // console.log("MANAGER ====> ", process.env.MANAGER_TOKEN);
+  // console.log("MANAGER ====> ", process.env.auth);
   /*   const getAbandondCarts = await axios.get(
     `${ZidAPI}/managers/store/abandoned-carts`,
     headers,
