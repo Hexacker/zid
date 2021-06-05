@@ -2,6 +2,8 @@ import express from "express";
 import path from "path";
 import AbandonedCarts from "./zid.js";
 import AddCoupon from "./addCoupon.js";
+import sendMail from "./mail.js";
+import Loyalty from "./loyality.js";
 
 const __dirname = path.resolve();
 var app = express();
@@ -23,12 +25,21 @@ app.get("/", async (req, res) => {
   res.render("index");
 });
 
+app.get("/loyalty", async (req, res) => {
+  res.render("loyalty");
+});
+
 app.get("/coupon", async (req, res) => {
   res.render("coupon");
 });
 
 app.get("/error", (req, res) => {
   res.render("error");
+});
+
+app.get("/loyalty2", async (req, res) => {
+  const rp = await Loyalty();
+  res.send(rp);
 });
 
 app.post("/add-coupon", async (req, res) => {
@@ -39,6 +50,17 @@ app.post("/add-coupon", async (req, res) => {
     res.redirect("/");
   } else {
     res.redirect("/error");
+  }
+});
+
+app.post("/mail", async (req, res) => {
+  const data = req.body;
+  const dataToSend = Object.assign({}, data);
+  const send = await sendMail(dataToSend);
+  if (send) {
+    res.send("mail has been sent");
+  } else {
+    res.send("there was an error");
   }
 });
 
