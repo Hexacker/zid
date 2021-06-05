@@ -1,44 +1,45 @@
 import express from "express";
 import path from "path";
-import ZidTest from "./zid.js";
+import AbandonedCarts from "./zid.js";
+import AddCoupon from "./addCoupon.js";
 
 const __dirname = path.resolve();
 var app = express();
 
 app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
 
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "pug");
 app.use(express.static(path.join(__dirname, "public")));
-/* app.set("views", __dirname + "/views"); // set express to look in this folder to render our view
-app.set("view engine", "pug"); // configure template engine
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json()); // parse form data client
-app.use(express.static(path.join(__dirname, "public"))); // configure express to use public folder
- */
+
 app.get("/carts", async (req, res) => {
-  //  console.log("XMANAGER ===> ", config.get("X-MANAGER-TOKEN"));
-  // console.log("LOOOOOOG ===> ", process.env.NODE_CONFIG_DIR);
-  const response = await ZidTest();
-  res.send(response);
+  const response = await AbandonedCarts();
+  const renderedData = response["abandoned-carts"];
+  res.render("abandoned", { renderedData });
 });
 
 app.get("/", async (req, res) => {
-  const response = await ZidTest();
-  // console.log("DATA ==> ", response);
-  const renderedData = response["abandoned-carts"];
-  //const renderedData = response.status;
-  // console.log("DATA ==> ", renderedData);
-  res.render("data", { renderedData });
+  res.render("index");
 });
 
-app.get("/test", async (req, res) => {
-  const response = await ZidTest();
-  // console.log("DATA ==> ", response);
-  // const renderedData = response["abandoned-carts"];
-  //const renderedData = response.status;
-  // console.log("DATA ==> ", renderedData);
-  res.render("test");
+app.get("/coupon", async (req, res) => {
+  res.render("coupon");
+});
+
+app.get("/error", (req, res) => {
+  res.render("error");
+});
+
+app.post("/add-coupon", async (req, res) => {
+  const data = req.body;
+  const dataToSend = Object.assign({}, data);
+  const response = await AddCoupon(dataToSend);
+  if (response) {
+    res.redirect("/");
+  } else {
+    res.redirect("/error");
+  }
 });
 
 const port = process.env.PORT || 3000;
