@@ -92,7 +92,7 @@ app.get("/coupon", function _callee4(req, res) {
 app.get("/error", function (req, res) {
   res.render("error");
 });
-app.get("/loyalty2", function _callee5(req, res) {
+app.post("/loyalty", function _callee5(req, res) {
   var rp;
   return regeneratorRuntime.async(function _callee5$(_context5) {
     while (1) {

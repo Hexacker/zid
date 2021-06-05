@@ -37,7 +37,7 @@ app.get("/error", (req, res) => {
   res.render("error");
 });
 
-app.get("/loyalty2", async (req, res) => {
+app.post("/loyalty", async (req, res) => {
   const rp = await Loyalty();
   res.send(rp);
 });
