@@ -93,7 +93,7 @@ app.get("/error", function (req, res) {
   res.render("error");
 });
 app.post("/loyalty", function _callee5(req, res) {
-  var rp;
+  var response;
   return regeneratorRuntime.async(function _callee5$(_context5) {
     while (1) {
       switch (_context5.prev = _context5.next) {
@@ -102,8 +102,8 @@ app.post("/loyalty", function _callee5(req, res) {
           return regeneratorRuntime.awrap((0, _loyality["default"])());
 
         case 2:
-          rp = _context5.sent;
-          res.send(rp);
+          response = _context5.sent;
+          res.send(response);
 
         case 4:
         case "end":
