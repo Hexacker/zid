@@ -38,8 +38,8 @@ app.get("/error", (req, res) => {
 });
 
 app.post("/loyalty", async (req, res) => {
-  const rp = await Loyalty();
-  res.send(rp);
+  const response = await Loyalty();
+  res.send(response);
 });
 
 app.post("/add-coupon", async (req, res) => {
